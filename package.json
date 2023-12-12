@@ -1,0 +1,16 @@
+{
+  "name": "uskok-validator",
+  "version": "1.0.0",
+  "description": "Simple object validor",
+  "main": "index.js",
+  "scripts": {
+    "dev": ""
+  },
+  "keywords": [
+    "object",
+    "validator",
+	"express"
+  ],
+  "author": "Vuk Uskokovic",
+  "license": "MIT"
+}
