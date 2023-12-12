@@ -2,15 +2,21 @@
   "name": "uskok-validator",
   "version": "1.0.0",
   "description": "Simple object validor",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": ""
+    "dev": "nodemon src/index.ts",
+    "build": "tsc"
   },
   "keywords": [
     "object",
     "validator",
-	"express"
+    "express"
   ],
   "author": "Vuk Uskokovic",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
 }
