@@ -1,14 +1,15 @@
-import { BaseDescriptor, BaseValidator, ExportedValueValidator, undeifnedNullTypeCheck, uskokValidator } from "../descriptors"
+import { config } from "../config"
+import { BaseDescriptor, BaseValidator, ExportedValueValidator, UskokValidatorError, undeifnedNullTypeCheck } from "../descriptors"
 import { ErrorCodes } from "../errorTypes"
 
 export interface ObjectDescriptor extends BaseDescriptor<any>{
     fields?: Record<string, ExportedValueValidator>
 }
 
-export const objectValudator : BaseValidator = (val?:any|null, descriptor?:ObjectDescriptor) : ErrorCodes | undefined => {
-    const {isProvided, errorCode} = undeifnedNullTypeCheck('object', val, descriptor)
-    if(errorCode) return errorCode
-
+export const objectValudator : BaseValidator = (val?:any|null, descriptor?:ObjectDescriptor) : UskokValidatorError | undefined => {
+    const {isProvided, error} = undeifnedNullTypeCheck('object', val, descriptor)
+    if(error) return error
+    if(Array.isArray(val)) return {errorCode: 'wrong_type', computedMessage: config.wrongTypeMessage('object')}
 
     if(descriptor && isProvided){
         if(descriptor.fields){
@@ -16,11 +17,13 @@ export const objectValudator : BaseValidator = (val?:any|null, descriptor?:Objec
                 const value = val![fieldName]
 
                 const error = exportedValidator(value)
-                if(error) return error
+                if(error) return {
+                    computedMessage: config.objectErrorMessage(fieldName, error.computedMessage),
+                    errorCode: error.errorCode,
+                    name: fieldName
+                }
             }
         }
-
-        if(descriptor.validateFunc && descriptor.validateFunc(val!) === false) return 'validator_failed'
     }
 
     return undefined
