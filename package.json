@@ -1,8 +1,12 @@
 {
   "name": "uskok-validator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple object validor",
   "main": "dist/index.js",
+  "repository": {
+    "url": "https://github.com/vukuskokovic/uskok-validator",
+    "type": "git"
+  },
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc"
